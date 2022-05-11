@@ -7,8 +7,8 @@ from app import login
 
 class User(db.Model):
     __tablename__ = "users"
-    code = db.Column(db.Integer, primary_key=True)
-    password = db.Column(db.String)
+    code = db.Column(db.String, primary_key=True)
+    password = db.Column(db.String, nullable=False)
     role = db.Column(db.String, nullable=False)
 
     def set_password(self, password_input):
@@ -28,7 +28,7 @@ class Student(db.Model):
     fullname = db.Column(db.String, nullable=False)
     gender = db.Column(db.String, nullable=False)
     address = db.Column(db.String, nullable=False)
-    user_code = db.column(db.Integer, db.ForeignKey("users.code"), nullable=False)
+    user_code = db.Column(db.String, db.ForeignKey("users.code"), nullable=False)
 
 
 class Teacher(db.Model):
@@ -38,7 +38,7 @@ class Teacher(db.Model):
     gender = db.Column(db.String, nullable=False)
     phone = db.Column(db.Integer, nullable=False, unique=True)
     email = db.Column(db.String, nullable=False, unique=True)
-    user_code = db.column(db.String, db.ForeignKey("users.code"), nullable=False)
+    user_code = db.Column(db.String, db.ForeignKey("users.code"), nullable=False)
 
 
 class Subject(db.Model):
@@ -51,14 +51,15 @@ class Subject(db.Model):
     transcipts = db.relationship("Transcipts", backref="subject")
 
 
-class Transcipts(db.Model):
-    __tablename__ = "transcipts"
-    student_id = db.Column(db.Integer, db.ForeignKey("students.id", nullable=False))
+class Transcripts(db.Model):
+    __tablename__ = "transcripts"
+    id = db.Column(db.Integer, primary_key=True)
+    student_id = db.Column(db.Integer, db.ForeignKey("students.id"), nullable=False)
     fullname = db.Column(db.String, nullable=False)
     subject_id = db.Column(db.Integer, db.ForeignKey("subjects.id"), nullable=False)
-    score_C = db.Column(db.Double)
-    score_B = db.Column(db.Double)
-    score_A = db.Column(db.Double)
-    summation_points = db.Column(db.Double)
+    score_C = db.Column(db.Float)
+    score_B = db.Column(db.Float)
+    score_A = db.Column(db.Float)
+    summation_points = db.Column(db.Float)
     cumulative_credit_number = db.Column(db.Integer)
-    GPA = db.Column(db.Double)
+    GPA = db.Column(db.Float)
