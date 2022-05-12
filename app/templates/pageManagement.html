@@ -1,0 +1,30 @@
+<!-- prettier-ignore -->
+{% extends "layout.html" %}
+
+{% block title %} Page management {% endblock %}
+
+
+{% block body %}
+<div>
+  <ul style="list-style-type: none">
+    <li>
+      <a
+        href="{{url_for('pageManagementUsers')}}"
+        class="btn btn-primary btn-lg"
+        role="button"
+        style="min-width: 700px"
+        >Quản lý tài khoản người dùng
+      </a>
+    </li>
+    <li>
+      <a
+        href="{{url_for('pageManagementTranscripts')}}"
+        class="btn btn-primary btn-lg"
+        role="button"
+        style="min-width: 700px"
+        >Quản lý bảng điểm các sinh viên
+      </a>
+    </li>
+  </ul>
+</div>
+{% endblock %}

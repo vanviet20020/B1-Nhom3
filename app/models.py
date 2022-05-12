@@ -5,11 +5,12 @@ from flask_login import UserMixin
 from app import login
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = "users"
-    code = db.Column(db.String, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    code = db.Column(db.String, nullable=False, unique=True)
     password = db.Column(db.String, nullable=False)
-    role = db.Column(db.String, nullable=False)
+    role = db.Column(db.String)
 
     def set_password(self, password_input):
         self.password = generate_password_hash(password_input)
@@ -28,7 +29,7 @@ class Student(db.Model):
     fullname = db.Column(db.String, nullable=False)
     gender = db.Column(db.String, nullable=False)
     address = db.Column(db.String, nullable=False)
-    user_code = db.Column(db.String, db.ForeignKey("users.code"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
 
 
 class Teacher(db.Model):
@@ -38,7 +39,7 @@ class Teacher(db.Model):
     gender = db.Column(db.String, nullable=False)
     phone = db.Column(db.Integer, nullable=False, unique=True)
     email = db.Column(db.String, nullable=False, unique=True)
-    user_code = db.Column(db.String, db.ForeignKey("users.code"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
 
 
 class Subject(db.Model):
@@ -48,7 +49,7 @@ class Subject(db.Model):
     credit_number = db.Column(db.Integer, nullable=False)
     semester = db.Column(db.Integer, nullable=False)
     teacher_id = db.Column(db.Integer, db.ForeignKey("teachers.id"), nullable=False)
-    transcipts = db.relationship("Transcipts", backref="subject")
+    transcript = db.relationship("Transcripts", backref="subjects")
 
 
 class Transcripts(db.Model):

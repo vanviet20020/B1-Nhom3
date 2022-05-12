@@ -1,0 +1,42 @@
+<!-- prettier-ignore -->
+{% extends "layout.html" %}
+
+{% block title %} Page management User{% endblock %}
+
+
+{% block body %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Code</th>
+      <th scope="col">Password</th>
+      <th scope="col">Role</th>
+      <th scope="col">Sửa</th>
+      <th scope="col">Xóa</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in users %}
+    <tr>
+      <th scope="row">1</th>
+      <td>{{user.code}}</td>
+      <td>{{user.password}}</td>
+      <td>{{user.role}}</td>
+      <td><a href="#" class="btn btn-primary">Sửa</a></td>
+      <td>
+        <a
+          href=""
+          class="btn btn-danger"
+          data-bs-toggle="modal"
+          data-bs-target="#btn-delete-courses-modal"
+          data-id="{{user.id}}"
+          >Xóa</a
+        >
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
