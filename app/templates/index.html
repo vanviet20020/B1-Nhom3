@@ -3,49 +3,10 @@
 
 
 {% block title %}
-Trang chủ
+{{ title }}
 {% endblock %}
 
 
 {% block body %}
-{% if current_user.is_authenticated and current_user.role == 'admin' %}
-<a
-  href="{{ url_for('pageManagement')}}"
-  class="btn btn-primary btn-lg"
-  role="button"
-  style="min-width: 700px"
-  >Vào trang quản lý
-</a>
-{% elif current_user.is_authenticated and current_user.role == 'teacher' %}
-<a
-  href="{{ url_for('#', user_id = current_user.id)}}"
-  class="btn btn-primary btn-lg"
-  role="button"
-  style="min-width: 700px"
-  >Nhập điểm sinh viên
-</a>
-{% elif current_user.is_authenticated and current_user.role == 'student' %}
-<a
-  href="{{ url_for('#', user_id = current_user.id)}}"
-  class="btn btn-primary btn-lg"
-  role="button"
-  style="min-width: 700px"
-  >Xem điểm
-</a>
-{% else %}
-<div>
-  Bạn chưa đăng nhập
-  <a
-    href="{{ url_for('login') }}"
-    class="btn btn-outline-primary me-2"
-    role="button"
-    >Đăng nhập ngay
-  </a>
-  hoặc
-  <a href="{{ url_for('signUp') }}" class="btn btn-primary btn" role="button"
-    >Đăng kí ngay
-  </a>
-</div>
-{% endif %} {% with messages = get_flashed_messages() %}
-<h2>{{messages[0]}}</h2>
-{% endwith %} {%endblock %}
+<h1>{{title}}</h1>
+{% endblock %}
