@@ -22,7 +22,7 @@ class Teacher(db.Model):
     gender = db.Column(db.String, nullable=False)
     phone = db.Column(db.Integer, nullable=False, unique=True)
     email = db.Column(db.String, nullable=False, unique=True)
-    child = db.relationship("Subject", back_populates="teachers", uselist=False)
+    child = db.relationship("Subject", backref="teachers", uselist=False)
 
 
 class Subject(db.Model):
@@ -32,10 +32,10 @@ class Subject(db.Model):
     credit_number = db.Column(db.Integer, nullable=False)
     semester = db.Column(db.Integer, nullable=False)
     teacher_id = db.Column(db.Integer, db.ForeignKey("teachers.id"), nullable=False)
-    parent = db.relationship("Teacher", back_populates="subjects")
-    transcript = db.relationship(
-        "Transcripts", backref="subjects", cascade="all, delete", passive_deletes=True
-    )
+    parent = db.relationship("Teacher", backref="subjects")
+    # transcript = db.relationship(
+    #     "Transcripts", backref="subjects", cascade="all, delete", passive_deletes=True
+    # )
 
 
 class Transcripts(db.Model):

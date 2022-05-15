@@ -1,0 +1,21 @@
+<!-- prettier-ignore -->
+{% extends "layout.html" %}
+
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+
+{% block body %}
+<h1>{{title}}</h1>
+<div class="form-group">
+  <select name="transcript_id" class="form-control">
+    {% for transcript in transcripts %}
+    <option value="{{ transcript.id }}">
+      <div></div>
+    </option>
+    {% endfor %}
+  </select>
+</div>
+{% endblock %}
