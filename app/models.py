@@ -10,6 +10,9 @@ class Student(db.Model):
     dob = db.Column(db.String, nullable=False)
     gender = db.Column(db.String, nullable=False)
     address = db.Column(db.String, nullable=False)
+    transcript = db.relationship(
+        "Transcripts", backref="subjects", cascade="all, delete", passive_deletes=True
+    )
 
 
 class Teacher(db.Model):
@@ -19,6 +22,7 @@ class Teacher(db.Model):
     gender = db.Column(db.String, nullable=False)
     phone = db.Column(db.Integer, nullable=False, unique=True)
     email = db.Column(db.String, nullable=False, unique=True)
+    child = db.relationship("Subject", back_populates="teachers", uselist=False)
 
 
 class Subject(db.Model):
@@ -28,6 +32,7 @@ class Subject(db.Model):
     credit_number = db.Column(db.Integer, nullable=False)
     semester = db.Column(db.Integer, nullable=False)
     teacher_id = db.Column(db.Integer, db.ForeignKey("teachers.id"), nullable=False)
+    parent = db.relationship("Teacher", back_populates="subjects")
     transcript = db.relationship(
         "Transcripts", backref="subjects", cascade="all, delete", passive_deletes=True
     )
