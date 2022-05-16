@@ -9,4 +9,7 @@
 
 {% block body %}
 <h1>{{title}}</h1>
-{% endblock %}
+
+{% with messages = get_flashed_messages() %}
+<h2>{{messages[0]}}</h2>
+{% endwith %} {% endblock %}

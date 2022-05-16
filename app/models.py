@@ -11,7 +11,7 @@ class Student(db.Model):
     gender = db.Column(db.String, nullable=False)
     address = db.Column(db.String, nullable=False)
     transcript = db.relationship(
-        "Transcripts", backref="subjects", cascade="all, delete", passive_deletes=True
+        "Transcripts", backref="students", cascade="all, delete", passive_deletes=True
     )
 
 
@@ -33,9 +33,9 @@ class Subject(db.Model):
     semester = db.Column(db.Integer, nullable=False)
     teacher_id = db.Column(db.Integer, db.ForeignKey("teachers.id"), nullable=False)
     parent = db.relationship("Teacher", backref="subjects")
-    # transcript = db.relationship(
-    #     "Transcripts", backref="subjects", cascade="all, delete", passive_deletes=True
-    # )
+    transcript = db.relationship(
+        "Transcripts", backref="subjects", cascade="all, delete", passive_deletes=True
+    )
 
 
 class Transcripts(db.Model):

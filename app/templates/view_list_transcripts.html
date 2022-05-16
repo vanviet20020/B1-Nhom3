@@ -1,0 +1,19 @@
+<!-- prettier-ignore -->
+{% extends "layout.html" %}
+
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+
+{% block body %}
+
+{% for student in students %}
+<a
+  href="{{url_for('view_transcripts', student_id = student.id)}}"
+  class="btn btn-primary mt-3"
+  role="button"
+  >Xem bảng điểm sinh viên {{student.fullname}} có mã sinh viên {{student.id}}
+</a>
+{% endfor %} {% endblock %}

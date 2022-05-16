@@ -1,12 +1,12 @@
-# from flask_wtf import FlaskForm
-# from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
-# from wtforms.validators import (
-#     DataRequired,
-#     Length,
-#     ValidationError,
-#     EqualTo,
-#     InputRequired,
-# )
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
+from wtforms.validators import (
+    DataRequired,
+    Length,
+    ValidationError,
+    EqualTo,
+    InputRequired,
+)
 
 # from app.models import User
 
@@ -47,8 +47,23 @@
 #     submit = SubmitField("Sign In")
 
 
-# class FormUpdateTranscripts(FlaskForm):
-#     score_C = StringField("Score C", validators=[DataRequired()])
-#     score_B = StringField("Score B", validators=[DataRequired()])
-#     score_A = StringField("Score A", validators=[DataRequired()])
-#     submit = SubmitField("Xác nhận")
+class FormUpdateTranscripts(FlaskForm):
+    score_C = StringField("Điểm C", validators=[DataRequired()])
+    score_B = StringField("Điểm B", validators=[DataRequired()])
+    score_A = StringField("Điểm A", validators=[DataRequired()])
+    submit = SubmitField("Xác nhận")
+
+    def validate_score_C(self, score_C):
+        score_C = float(score_C.data)
+        if score_C < 0 or score_C > 100:
+            raise ValidationError("Vui lòng nhập giá trị của điểm từ 0 đến 10")
+
+    def validate_score_B(self, score_B):
+        score_B = float(score_B.data)
+        if score_B < 0 or score_B > 100:
+            raise ValidationError("Vui lòng nhập giá trị của điểm từ 0 đến 10")
+
+    def validate_score_A(self, score_A):
+        score_A = float(score_A.data)
+        if score_A < 0 or score_A > 100:
+            raise ValidationError("Vui lòng nhập giá trị của điểm từ 0 đến 10")
