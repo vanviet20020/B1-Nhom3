@@ -87,7 +87,7 @@ def update_transcripts(student_id, transcript_id):
         new_transcripts.score_A = new_score_A
         new_transcripts.summation_points = new_summation_points
         db.session.commit()
-        flash("Thêm điểm cho sinh viên thành công")
+        flash("Nhập điểm cho sinh viên thành công")
         return redirect(url_for("view_transcripts", student_id=student_id))
     return render_template(
         "update_transcripts.html",
@@ -102,4 +102,5 @@ def delete_transscripts(student_id, transcript_id):
     delete_transcripts = Transcripts.query.filter_by(id=transcript_id).first()
     db.session.delete(delete_transcripts)
     db.session.commit()
+    flash("Xoá môn học thành công")
     return redirect(url_for("view_transcripts", student_id=student_id))

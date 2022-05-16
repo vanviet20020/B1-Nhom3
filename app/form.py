@@ -1,11 +1,19 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
+from wtforms import (
+    StringField,
+    PasswordField,
+    SubmitField,
+    BooleanField,
+    SelectField,
+    FloatField,
+)
 from wtforms.validators import (
     DataRequired,
     Length,
     ValidationError,
     EqualTo,
     InputRequired,
+    NumberRange,
 )
 
 # from app.models import User
@@ -48,9 +56,36 @@ from wtforms.validators import (
 
 
 class FormUpdateTranscripts(FlaskForm):
-    score_C = StringField("Điểm C", validators=[DataRequired()])
-    score_B = StringField("Điểm B", validators=[DataRequired()])
-    score_A = StringField("Điểm A", validators=[DataRequired()])
+    score_C = FloatField(
+        "Điểm C",
+        validators=[
+            DataRequired(),
+            NumberRange(
+                min=0, max=10, message="Vui lòng nhập giá trị của điểm từ 0 đến 10"
+            ),
+        ],
+        render_kw={"step": "0.05"},
+    )
+    score_B = FloatField(
+        "Điểm B",
+        validators=[
+            DataRequired(),
+            NumberRange(
+                min=0, max=10, message="Vui lòng nhập giá trị của điểm từ 0 đến 10"
+            ),
+        ],
+        render_kw={"step": "0.05"},
+    )
+    score_A = FloatField(
+        "Điểm A",
+        validators=[
+            DataRequired(),
+            NumberRange(
+                min=0, max=10, message="Vui lòng nhập giá trị của điểm từ 0 đến 10"
+            ),
+        ],
+        render_kw={"step": "0.05"},
+    )
     submit = SubmitField("Xác nhận")
 
     def validate_score_C(self, score_C):
