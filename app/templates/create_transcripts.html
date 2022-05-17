@@ -18,13 +18,23 @@
     Thêm môn học cho sinh viên {{student.fullname}} có mã sinh viên
     {{student.id}}
   </div>
-  <div class="form-group">
-    <label for="">Chọn môn học:</label>
+  <div class="form-group mt-3">
+    <label for="" class="form-label">Chọn môn học:</label>
     <select name="subject_id" class="form-control">
       {% for subject in subjects %}
       <option value="{{ subject.id }}">
         <div>{{subject.name}}</div>
       </option>
+      {% else %}
+      <div>
+        Chưa có môn học nào.
+        <a
+          href="{{url_for('addsubject_s1')}}"
+          class="btn btn-primary btn"
+          role="button"
+          >Tạo môn học mới ngay
+        </a>
+      </div>
       {% endfor %}
     </select>
   </div>
