@@ -28,13 +28,12 @@ class Teacher(db.Model):
     gender = db.Column(db.String, nullable=False)
     phone = db.Column(db.Integer, nullable=False, unique=True)
     email = db.Column(db.String, nullable=False, unique=True)
-    child = db.relationship("Subject", backref="teachers", uselist=False)
     subjects = db.relationship(
         "Subject",
         backref="teacher",
         lazy="dynamic",
-        # cascade="all, delete",
-        # passive_deletes=True,
+        cascade="all, delete",
+        passive_deletes=True,
     )
 
 
@@ -49,8 +48,8 @@ class Subject(db.Model):
         "Transcript",
         backref="subject",
         lazy="dynamic",
-        # cascade="all, delete",
-        # passive_deletes=True,
+        cascade="all, delete",
+        passive_deletes=True,
     )
 
 

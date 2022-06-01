@@ -1,0 +1,38 @@
+<!-- prettier-ignore -->
+{% extends "layout.html" %}
+
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+
+{% block body %}
+<div>
+  <h5>Phân quyền tài khoản {{user.name}} với email:{{user.email}}</h5>
+  <form
+    action="{{url_for('update_user_is_admin_success', user_id=user.id)}}"
+    class="form-label"
+    method="post"
+  >
+    <div>
+      <label>Chọn cho tài khoản:</label>
+      {% if user.is_admin !=0 %}
+      <input type="radio" name="is_admin" value="1" checked="checked" />
+      <label for="male">Admin</label>
+      <input type="radio" name="is_admin" value="0" />
+      <label for="female">Không</label>
+
+      {% else %}
+      <input type="radio" name="is_admin" value="1" />
+      <label for="male">Admin</label>
+      <input type="radio" name="is_admin" value="0" checked="checked" />
+      <label for="female">Không</label>
+      {% endif %}
+    </div>
+    <div class="col-12">
+      <button class="btn btn-primary mt-3" type="submit">Cập nhật quyền</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

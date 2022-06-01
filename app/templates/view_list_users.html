@@ -1,0 +1,23 @@
+<!-- prettier-ignore -->
+{% extends "layout.html" %}
+
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+
+{% block body %}
+<div class="d-flex flex-column">
+  {% for user in users %}
+  <a
+    href="{{ url_for('update_user_is_admin', user_id=user.id) }}"
+    class="btn btn-primary mt-3 max-width-content"
+    role="button"
+    >Tài khoản id={{user.id}}, tên tài khoản {{user.name}},
+    email="{{user.email}}", admin= {% if user.is_admin != 0%} Có {% else %}
+    Không {% endif %}
+  </a>
+  {% endfor %}
+</div>
+{% endblock %}

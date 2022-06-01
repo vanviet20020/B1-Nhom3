@@ -10,6 +10,7 @@
 {% block body %}
 
 {% if current_user.is_authenticated %}
+
 <ul>
   <li>
     <a
@@ -35,6 +36,50 @@
       >Cập nhật sinh viên</a
     >
   </li>
+  <li>
+    <a
+      href="{{ url_for('filter_student_s1') }}"
+      class="btn btn-primary mt-3 max-width-content"
+      role="button"
+      >Tìm sinh viên để xóa</a
+    >
+  </li>
+  <li>
+    <a
+      href="{{ url_for('addsubject_s1') }}"
+      class="btn btn-primary mt-3 max-width-content"
+      role="button"
+      >Thêm môn học</a
+    >
+  </li>
+
+  <li>
+    <a
+      href="{{ url_for('delete_subject_s1') }}"
+      class="btn btn-primary mt-3 max-width-content"
+      role="button"
+      >Xóa môn học</a
+    >
+  </li>
+
+  <li>
+    <a
+      href="{{ url_for('Update_subject_s1') }}"
+      class="btn btn-primary mt-3 max-width-content"
+      role="button"
+      >Cập nhật môn học</a
+    >
+  </li>
+
+  <li>
+    <a
+      href="{{ url_for('searchsubject_s1') }}"
+      class="btn btn-primary mt-3 max-width-content"
+      role="button"
+      >Hiển thị môn học</a
+    >
+  </li>
+
   <li>
     <a
       href="{{ url_for('addteacher_s1')}}"
@@ -66,6 +111,14 @@
       class="btn btn-primary mt-3 max-width-content"
       role="button"
       >Quản lý bảng điểm sinh viên</a
+    >
+  </li>
+  <li>
+    <a
+      href="{{url_for('view_list_users')}}"
+      class="btn btn-primary mt-3 max-width-content"
+      role="button"
+      >Quản lý tài khoản</a
     >
   </li>
 </ul>

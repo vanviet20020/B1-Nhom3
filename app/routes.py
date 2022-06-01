@@ -283,23 +283,25 @@ def Update_subject_s3():
 # ---------- Update Subject  ----------------
 
 
-@app.route("/filter_subject_s1")
+@app.route("/filter_student_s1")
 @login_required
-def filter_subject_s1():
+def filter_student_s1():
     id_user = current_user.get_id()
     user = User.query.get(id_user)
     if user.is_admin == 0:
         flash("Only admin can access!")
         return redirect(url_for("index"))
     else:
-        return render_template("filter_subject_s1.html")
+        return render_template("filter_student_s1.html")
 
 
-@app.route("/filter_subject_s2", methods=["POST", "GET"])
-def filter_subject_s2():
+@app.route("/filter_student_s2", methods=["POST", "GET"])
+def filter_student_s2():
     name = request.form.get("fullname")
     if name is not None:
-        students = Student.query.filter(Student.fullname == name).all()
+        students = Student.query.filter(
+            or_(Student.fullname == name, Student.address == name)
+        ).all()
     return render_template("delete_student.html", students=students)
 
 
@@ -490,8 +492,40 @@ def update_transcripts(student_id, transcript_id):
 # Xóa bảng điểm một môn của sinh viên
 @app.route("/transcripts/delete/<int:student_id>/<int:transcript_id>")
 def delete_transscripts(student_id, transcript_id):
-    delete_transcripts = Transcripts.query.filter_by(id=transcript_id).first()
+    delete_transcripts = Transcript.query.filter_by(id=transcript_id).first()
     db.session.delete(delete_transcripts)
     db.session.commit()
     flash("Xoá môn học thành công")
     return redirect(url_for("view_transcripts", student_id=student_id))
+
+
+@app.route("/users")
+@login_required
+def view_list_users():
+    id_user = current_user.get_id()
+    user = User.query.get(id_user)
+    if user.is_admin == 0:
+        flash("Only admin can access!")
+        return redirect(url_for("index"))
+    else:
+        users = User.query.all()
+        return render_template(
+            "view_list_users.html", users=users, title="Danh sách tài khoản"
+        )
+
+
+@app.route("/users/update/<int:user_id>/is_admin")
+def update_user_is_admin(user_id):
+    user = User.query.get(user_id)
+    return render_template(
+        "update_user_is_admin.html", user=user, title="Cập nhật quyền"
+    )
+
+
+@app.route("/users/update/<int:user_id>/success", methods=["POST"])
+def update_user_is_admin_success(user_id):
+    is_admin = int(request.form.get("is_admin"))
+    user = User.query.get(user_id)
+    user.is_admin = is_admin
+    db.session.commit()
+    return redirect(url_for("view_list_users"))
